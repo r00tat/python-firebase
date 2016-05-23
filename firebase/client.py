@@ -32,6 +32,10 @@ class Firebase(object):
         token = create_token(secret, auth_payload)
         self.set_token(token)
 
+    def oauth2_authenticate(self, credentials):
+        """ authenticate using oauth2 credentials """
+        self.http.authenticate(credentials)
+
     def url(self, url=None, params={}):
         """ generate the url for a request """
         return '{}.json?{}'.format(
