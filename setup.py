@@ -2,7 +2,7 @@ from setuptools import setup
 from firebase import __version__ as lib_version
 
 setup(
-    name='zirrus-firebase',
+    name='pyfirebase',
     version=lib_version,
     author='Paul Woelfel',
     author_email='paul.woelfel@zirrus.eu',
