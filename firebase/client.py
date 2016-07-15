@@ -11,6 +11,8 @@ import httplib2
 class Firebase(object):
     """ Firebase helper class to work with the Firebase REST API """
     token = None
+    access_token = None
+    scopes = ['https://www.googleapis.com/auth/firebase.database', 'email']
 
     def __init__(self, firebase_url, timeout=30):
         """ initialize a firebase instance """
@@ -25,6 +27,10 @@ class Firebase(object):
         """ set the authentication token """
         self.token = token
 
+    def set_access_token(self, access_token):
+        """ use a Google OAUTH2 access token """
+        self.access_token = access_token
+
     def authenticate(self, uid, secret, auth_payload={}):
         """ authenticate using custom auth """
         auth_payload = auth_payload if auth_payload is not None else {}
@@ -34,7 +40,7 @@ class Firebase(object):
 
     def oauth2_authenticate(self, credentials):
         """ authenticate using oauth2 credentials """
-        self.http.authenticate(credentials)
+        self.http = credentials.authorize(self.http)
 
     def url(self, url=None, params={}):
         """ generate the url for a request """
@@ -63,5 +69,7 @@ class Firebase(object):
         params = params if params is not None else {}
         if self.token is not None:
             params['auth'] = self.token
+        if self.access_token:
+            params['access_token'] = self.access_token
         resp, content = self.http.request(self.url(url, params), method, json.dumps(data) if data else None)
         return json.loads(content)
