@@ -44,9 +44,7 @@ class Firebase(object):
 
     def url(self, url=None, params={}):
         """ generate the url for a request """
-        return '{}.json?{}'.format(
-            '{}/{}'.format(self.base_url, url if url else '').rstrip('/'),
-            urllib.urlencode(params if params else {}))
+        return '{}/{}.json?{}'.format(self.base_url, url if url else '', urllib.urlencode(params if params else {}))
 
     def get(self, url=None, params={}):
         """ execute an HTTP REST GET """
