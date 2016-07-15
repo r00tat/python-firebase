@@ -14,4 +14,7 @@ setup(
     ],
     install_requires=[
         "firebase-token-generator"
+    ],
+    setup_requires=[
+        "firebase-token-generator"
     ])
