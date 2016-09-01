@@ -23,6 +23,18 @@ class Firebase(object):
             memcache = None
         self.http = httplib2.Http(memcache, timeout=timeout)
 
+    def child(self, path):
+        """ return a child instance with a sub path """
+        firebase_child = Firebase('{}/{}'.format(self.base_url, path))
+        if self.token:
+            firebase_child.token = self.token
+
+        if self.access_token:
+            firebase_child.access_token = self.access_token
+
+        firebase_child.http = self.http
+        return firebase_child
+
     def set_token(self, token):
         """ set the authentication token """
         self.token = token
