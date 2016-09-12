@@ -82,4 +82,10 @@ class Firebase(object):
         if self.access_token:
             params['access_token'] = self.access_token
         resp, content = self.http.request(self.url(url, params), method, json.dumps(data) if data else None)
-        return json.loads(content)
+        if resp.status == 200:
+            return json.loads(content)
+        elif resp.status == 204:
+            # this is fine
+            return None
+        else:
+            return content
