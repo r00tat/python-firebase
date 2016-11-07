@@ -70,6 +70,10 @@ class Firebase(object):
         """ execute an HTTP REST POST """
         return self.method('POST', url=url, data=data, params=params)
 
+    def patch(self, url=None, data=None, params={}):
+        """ execute an HTTP REST PATCH """
+        return self.method('PATCH', url=url, data=data, params=params)
+
     def delete(self, url=None, params={}):
         """ execute an HTTP REST DELETE """
         return self.method('DELETE', url=url, params=params)
