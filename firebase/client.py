@@ -92,4 +92,4 @@ class Firebase(object):
             # this is fine
             return None
         else:
-            return content
+            raise httplib2.HttpLib2ErrorWithResponse("Firebase API call failed", response=resp, content=content)
